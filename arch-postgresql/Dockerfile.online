@@ -1,0 +1,13 @@
+FROM sulhan/arch-base:latest
+MAINTAINER Sulhan <ms@kilabit.info>
+
+ExPOSE 5432
+
+COPY bootstrap.sh /
+COPY init.sh /
+COPY pg_hba.conf /
+COPY postgresql.conf /
+
+RUN exec /bootstrap.sh
+
+ENTRYPOINT ["/init.sh"]
