@@ -1,5 +1,34 @@
 #!/bin/bash
 
+strip_bin() {
+	find /usr/bin -type f \( -perm -0100 \) -print |
+		xargs file |
+		sed -n '/executable .*not stripped/s/: TAB .*//p' |
+		xargs -rt strip --strip-unneeded
+}
+
+strip_lib() {
+	find /usr/lib -type f \( -perm -0100 \) -print |
+		xargs file |
+		sed -n '/executable .*not stripped/s/: TAB .*//p' |
+		xargs -rt strip --strip-unneeded
+}
+
+clean_common() {
+	echo "==> cleaning ..."
+	strip_bin
+	strip_lib
+	rm -rf /usr/include/*
+	rm -rf /usr/share/doc/*
+	rm -rf /usr/share/licenses/*
+	rm -rf /usr/share/locale/*
+	rm -rf /usr/share/man/*
+	rm -rf /usr/share/info/*
+	rm -rf /var/cache/pacman/pkg/*
+	rm -rf /var/log/*
+	rm -f /bootstrap.sh
+}
+
 install_util_linux() {
 	pacman -Sy --noconfirm --needed util-linux
 	return $?
@@ -30,12 +59,5 @@ mv /postgresql.conf /var/lib/postgres/data/
 chown -R postgres:postgres /var/lib/postgres
 chown -R postgres:postgres /run/postgresql
 
-rm /bootstrap.sh
-
-rm -r /usr/include/*
-rm -r /usr/share/doc/*
-rm -r /usr/share/licenses/*
-rm -r /usr/share/locale/*
-rm -r /usr/share/man/*
-rm -r /var/cache/pacman/pkg/*
-rm -r /var/log/*
+## cleaning ...
+clean_common
