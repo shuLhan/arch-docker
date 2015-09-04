@@ -24,7 +24,7 @@ clean() {
 }
 
 docker_build() {
-	docker build --force-rm -t sulhan/arch-nodejs:latest .
+	docker build --force-rm -t sulhan/arch-nodejs .
 	s=$?
 	clean $s
 }
@@ -46,7 +46,7 @@ fi
 echo "==> Building docker image using local db and packages ..."
 
 ## always make sure local db and packages up to date.
-sudo pacman -Syu --noconfirm --needed nodejs npm
+sudo pacman -Syw --noconfirm --needed nodejs npm
 
 cp /var/lib/pacman/sync/*.db ./
 cp /var/cache/pacman/pkg/icu* ./
