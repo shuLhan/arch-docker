@@ -21,7 +21,7 @@ umount -R "$ROOTFS"
 mount -t tmpfs -o size=400M tmpfs "$ROOTFS"
 
 ## (4) 
-./pacstrap.sh -c -d "$ROOTFS" bash coreutils ca-certificates pacman sed binutils
+./pacstrap.sh -c -d "$ROOTFS" bash coreutils ca-certificates pacman sed binutils file
 
 ## (5)
 cp ./pacman.conf "$ROOTFS/etc/"
