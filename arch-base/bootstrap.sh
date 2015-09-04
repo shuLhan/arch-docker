@@ -5,11 +5,8 @@
 ## (3) set locale to en_GB.UTF-8.
 ## (4) generate locale.
 ## (5) set locale preferences.
-## (6) stripping binaries.
-## (7) remove unneeded packages.
-## (8) remove unneeded files.
-
-shopt -s extglob
+## (6) remove unneeded packages.
+## (7) remove unneeded files.
 
 strip_bin() {
 	find /usr/bin -type f \( -perm -0100 \) -print |
@@ -26,6 +23,9 @@ strip_lib() {
 }
 
 clean_common() {
+	echo "==> cleaning ..."
+	strip_bin
+	strip_lib
 	rm -rf /usr/include/*
 	rm -rf /usr/share/doc/*
 	rm -rf /usr/share/licenses/*
@@ -34,6 +34,7 @@ clean_common() {
 	rm -rf /usr/share/info/*
 	rm -rf /var/cache/pacman/pkg/*
 	rm -rf /var/log/*
+	rm -f /bootstrap.sh
 }
 
 ## (0)
@@ -48,9 +49,9 @@ echo "==> set timezone to UTC."
 cp /usr/share/zoneinfo/UTC /etc/localtime
 
 ## (3)
-echo "==> set locale to en_GB.UTF-8."
+echo "==> set locales."
 echo "en_GB.UTF-8 UTF-8" > /etc/locale.gen
-echo "en_US.UTF-8 UTF-8" > /etc/locale.gen
+echo "en_US.UTF-8 UTF-8" >> /etc/locale.gen
 
 ## (4)
 echo "==> generate locale."
@@ -58,19 +59,14 @@ echo "==> generate locale."
 
 ## (5)
 echo "==> set locale preferences."
-echo "LANG=en_GB.UTF-8"	> "$rootfs"/etc/locale.conf
-echo "LC_MESSAGES=C" >> "$rootfs"/etc/locale.conf
+echo "LANG=en_GB.UTF-8"	>  "$rootfs"/etc/locale.conf
+echo "LC_MESSAGES=C"	>> "$rootfs"/etc/locale.conf
 
 ## (6)
-echo "==> striping binaries."
-strip_bin
-strip_lib
+pacman -Rdd --noconfirm perl
+pacman -Rs --noconfirm db
 
 ## (7)
-pacman -Rs --noconfirm db
-pacman -Rdd --noconfirm perl
-
-## (8)
 echo "==> cleaning."
 
 find /usr/share/i18n/charmaps/ \! -name "UTF-8.gz" -delete
