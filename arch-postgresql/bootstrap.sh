@@ -51,13 +51,5 @@ mkdir -p /run/postgresql
 chown -R postgres:postgres /var/lib/postgres
 chown -R postgres:postgres /run/postgresql
 
-su - postgres -c "initdb --locale en_GB.UTF-8 -E UTF8 -D '/var/lib/postgres/data'"
-
-mv /pg_hba.conf /var/lib/postgres/data/
-mv /postgresql.conf /var/lib/postgres/data/
-
-chown -R postgres:postgres /var/lib/postgres
-chown -R postgres:postgres /run/postgresql
-
 ## cleaning ...
 clean_common

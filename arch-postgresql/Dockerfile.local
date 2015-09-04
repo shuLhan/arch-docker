@@ -2,16 +2,15 @@ FROM sulhan/arch-base:latest
 MAINTAINER Sulhan <ms@kilabit.info>
 
 ExPOSE 5432
-VOLUME ["/var/lib/postgres"]
 
-COPY init.sh /
-COPY postgresql.conf /
-COPY pg_hba.conf /
 COPY bootstrap.sh /
+COPY init.sh /
 
 COPY *.db /var/lib/pacman/sync/
 COPY *.xz /var/cache/pacman/pkg/
 
 RUN exec /bootstrap.sh
+
+VOLUME ["/var/lib/postgres"]
 
 CMD ["/init.sh"]
