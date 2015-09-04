@@ -4,13 +4,10 @@ MAINTAINER Sulhan <ms@kilabit.info>
 COPY *.db /var/lib/pacman/sync/
 COPY *.xz /var/cache/pacman/pkg/
 
-RUN pacman -S --noconfirm nodejs npm && \
-	rm -r /usr/include/* && \
-	rm -r /usr/share/doc/nodejs/* && \
-	rm -r /usr/share/licenses/* && \
-	rm -r /usr/share/man/* && \
-	rm -r /usr/lib/node_modules/npm/doc/* && \
-	rm -r /usr/lib/node_modules/npm/html/doc/* && \
-	rm -r /usr/lib/node_modules/npm/man/* && \
-	rm -r /var/cache/pacman/pkg/* && \
-	rm -r /var/log/*
+EXPOSE 80
+
+COPY bootstrap.sh /
+
+RUN exec /bootstrap.sh
+
+CMD ["/bin/bash"]
