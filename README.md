@@ -14,7 +14,7 @@ Base image generated using modified `pacstrap` script from
 * `en_GB.UTF-8` as locale,
 * `ansi`, `cygwin`, `linux`, `screen-256color`, `vt100`,
 `vt220`, and `xterm` in terminfo;
-* explicitly installed packages are `bash`, `coreutils`, `ca-certificates`
+* explicitly installed packages are `bash`, `coreutils`, `ca-certificates`, `pacman`, `sed`, `binutils`, `file`.
 , and `pacman`.
 
 To generate rootfs, execute
@@ -33,3 +33,15 @@ directory. You can modified the rootfs, and import back to docker using,
 This will create and import image name as `sulhan/arch-base:latest`.
 
 NOTE: remember to change the image name in `create-image.sh` if needed.
+
+## Nodejs Image
+
+`arch-nodejs` contain script to build Arch Linux system using `arch-base` which contain `nodejs` and `npm` package.
+
+This image expose port 80.
+
+## Postgresql Image
+
+`arch-postgresql` contain script to build Arch Linux system using `arch-base` running postgresql database.
+
+This image export port 5432.
