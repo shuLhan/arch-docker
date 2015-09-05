@@ -15,7 +15,7 @@ Base image generated using modified `pacstrap` script from
 * `ansi`, `cygwin`, `linux`, `screen-256color`, `vt100`,
 `vt220`, and `xterm` in terminfo;
 * explicitly installed packages are `bash`, `coreutils`, `ca-certificates`, `pacman`, `sed`, `binutils`, `file`.
-, and `pacman`.
+, and `grep`.
 
 To generate rootfs, execute
 
@@ -36,12 +36,27 @@ NOTE: remember to change the image name in `create-image.sh` if needed.
 
 ## Nodejs Image
 
-`arch-nodejs` contain script to build Arch Linux system using `arch-base` which contain `nodejs` and `npm` package.
-
-This image expose port 80.
+* Base image: `sulhan/arch-base`.
+* Installed packages: `git`, `gcc`, `make`, `python2`, `nodejs` and `npm`.
+* This image expose port 80.
 
 ## Postgresql Image
 
-`arch-postgresql` contain script to build Arch Linux system using `arch-base` running postgresql database.
+* Base image: `sulhan/arch-base`.
+* Installed packages: postgresql (plus dependencies).
+* This image export port 5432.
+* Using volume in `/var/lib/postgres`.
 
-This image export port 5432.
+## Jenkins Image
+
+* Base image: `sulhan/arch-base`.
+* Installed packages: `git`, `jre8-openjdk`, `jenkins`
+* This image export port 8090.
+* Using volume in `/srv/www`.
+
+## Buildbot Image
+
+* Base image: `sulhan/arch-nodejs:latest`.
+* Installed packages: `buildbot`, `buildbot-slave`.
+* This image export port 8010.
+* Using volume in `/srv/www`.
