@@ -26,7 +26,7 @@ clean_common() {
 	echo "==> cleaning ..."
 	strip_bin
 	strip_lib
-	rm -rf /usr/include/*
+#	rm -rf /usr/include/*
 	rm -rf /usr/share/doc/*
 	rm -rf /usr/share/licenses/*
 	rm -rf /usr/share/locale/*
