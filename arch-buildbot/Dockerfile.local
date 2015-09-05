@@ -1,0 +1,14 @@
+FROM sulhan/arch-nodejs:latest
+MAINTAINER Sulhan <ms@kilabit.info>
+
+VOLUME /srv/www
+EXPOSE 8010
+
+COPY init.sh /
+COPY bootstrap.sh /
+COPY *.db /var/lib/pacman/sync/
+COPY *.xz /var/cache/pacman/pkg/
+
+RUN exec /bootstrap.sh
+
+CMD ["/init.sh"]

@@ -1,0 +1,12 @@
+FROM sulhan/arch-nodejs:latest
+MAINTAINER Sulhan <ms@kilabit.info>
+
+VOLUME /srv/www
+EXPOSE 8010
+
+COPY init.sh /
+COPY bootstrap.sh /
+
+RUN exec /bootstrap.sh
+
+CMD ["/init.sh"]
