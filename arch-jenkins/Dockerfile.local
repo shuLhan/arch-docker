@@ -1,0 +1,14 @@
+FROM sulhan/arch-base:latest
+MAINTAINER Sulhan <ms@kilabit.info>
+
+EXPOSE 8090
+VOLUME /var/cache/jenkins
+
+COPY bootstrap.sh /
+COPY init.sh /
+COPY *.db /var/lib/pacman/sync/
+COPY *.xz /var/cache/pacman/pkg/
+
+RUN exec /bootstrap.sh
+
+CMD ["/init.sh"]

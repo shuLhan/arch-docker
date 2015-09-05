@@ -1,0 +1,12 @@
+FROM sulhan/arch-base:latest
+MAINTAINER Sulhan <ms@kilabit.info>
+
+EXPOSE 8090
+VOLUME /var/cache/jenkins
+
+COPY bootstrap.sh /
+COPY init.sh /
+
+RUN exec /bootstrap.sh
+
+CMD ["/init.sh"]
