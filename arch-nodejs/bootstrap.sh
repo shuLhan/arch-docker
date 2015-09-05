@@ -1,5 +1,7 @@
 #!/bin/bash
 
+PACKAGES="git gcc make python2 nodejs npm"
+
 strip_bin() {
 	find /usr/bin -type f \( -perm -0100 \) -print |
 		xargs file |
@@ -18,7 +20,6 @@ clean_common() {
 	echo "==> cleaning ..."
 	strip_bin
 	strip_lib
-	rm -rf /usr/include/*
 	rm -rf /usr/share/doc/*
 	rm -rf /usr/share/licenses/*
 	rm -rf /usr/share/locale/*
@@ -30,7 +31,7 @@ clean_common() {
 }
 
 do_install() {
-	pacman -Sy --noconfirm nodejs npm
+	pacman -S --noconfirm $PACKAGES
 	return $?
 }
 

@@ -15,6 +15,8 @@
 ##	container.
 ##
 
+PACKAGES="git gcc make python2 nodejs npm"
+
 clean() {
 	rm -f *.db
 	rm -f *.xz
@@ -46,12 +48,37 @@ fi
 echo "==> Building docker image using local db and packages ..."
 
 ## always make sure local db and packages up to date.
-sudo pacman -Syw --noconfirm --needed nodejs npm
+## npm require python, make, gcc to rebuild packages.
+sudo pacman -Syw --noconfirm --needed $PACKAGES
 
 cp /var/lib/pacman/sync/*.db ./
-cp /var/cache/pacman/pkg/icu* ./
-cp /var/cache/pacman/pkg/nodejs* ./
-cp /var/cache/pacman/pkg/npm* ./
+
+## git.
+cp /var/cache/pacman/pkg/db-5.* ./
+cp /var/cache/pacman/pkg/perl-5.* ./
+cp /var/cache/pacman/pkg/git-2.* ./
+
+## gcc.
+cp /var/cache/pacman/pkg/libmpc-1.* ./
+cp /var/cache/pacman/pkg/gcc-5.* ./
+
+## python.
+cp /var/cache/pacman/pkg/sqlite-3* ./
+cp /var/cache/pacman/pkg/python2-2.* ./
+
+## make.
+cp /var/cache/pacman/pkg/tar-1.* ./
+cp /var/cache/pacman/pkg/libtool-2.* ./
+cp /var/cache/pacman/pkg/libunistring* ./
+cp /var/cache/pacman/pkg/libatomic_ops* ./
+cp /var/cache/pacman/pkg/gc-7.* ./
+cp /var/cache/pacman/pkg/guile-2.* ./
+cp /var/cache/pacman/pkg/make-4.* ./
+
+## nodejs
+cp /var/cache/pacman/pkg/icu-55.* ./
+cp /var/cache/pacman/pkg/nodejs-0.12.* ./
+cp /var/cache/pacman/pkg/npm-2.14.* ./
 
 rm -f Dockerfile
 ln -s Dockerfile.local Dockerfile
