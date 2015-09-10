@@ -1,3 +1,3 @@
 #!/bin/bash
 
-docker build --force-rm -t sulhan/proofn-api .
+docker build --force-rm -t sulhan/arch-nodejs-sails .
