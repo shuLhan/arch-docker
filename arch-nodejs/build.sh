@@ -54,31 +54,37 @@ sudo pacman -Syw --noconfirm --needed $PACKAGES
 cp /var/lib/pacman/sync/*.db ./
 
 ## git.
-cp /var/cache/pacman/pkg/db-5.* ./
-cp /var/cache/pacman/pkg/perl-5.* ./
-cp /var/cache/pacman/pkg/git-2.* ./
+cp /var/cache/pacman/pkg/db-5.* \
+	/var/cache/pacman/pkg/perl-5.* \
+	/var/cache/pacman/pkg/perl-error-* \
+	/var/cache/pacman/pkg/git-2.* \
+	./
 
 ## gcc.
-cp /var/cache/pacman/pkg/libmpc-1.* ./
-cp /var/cache/pacman/pkg/gcc-5.* ./
+cp /var/cache/pacman/pkg/libmpc-1.* \
+	/var/cache/pacman/pkg/gcc-5.* \
+	./
 
-## python.
-cp /var/cache/pacman/pkg/sqlite-3* ./
-cp /var/cache/pacman/pkg/python2-2.* ./
+## python 2.
+cp /var/cache/pacman/pkg/sqlite-3* \
+	/var/cache/pacman/pkg/python2-2.* \
+	./
 
 ## make.
-cp /var/cache/pacman/pkg/tar-1.* ./
-cp /var/cache/pacman/pkg/libtool-2.* ./
-cp /var/cache/pacman/pkg/libunistring* ./
-cp /var/cache/pacman/pkg/libatomic_ops* ./
-cp /var/cache/pacman/pkg/gc-7.* ./
-cp /var/cache/pacman/pkg/guile-2.* ./
-cp /var/cache/pacman/pkg/make-4.* ./
+cp /var/cache/pacman/pkg/tar-1.* \
+	/var/cache/pacman/pkg/libtool-2.* \
+	/var/cache/pacman/pkg/libunistring* \
+	/var/cache/pacman/pkg/libatomic_ops* \
+	/var/cache/pacman/pkg/gc-7.* \
+	/var/cache/pacman/pkg/guile-2.* \
+	/var/cache/pacman/pkg/make-4.* \
+	./
 
 ## nodejs
-cp /var/cache/pacman/pkg/icu-55.* ./
-cp /var/cache/pacman/pkg/nodejs-0.12.* ./
-cp /var/cache/pacman/pkg/npm-2.14.* ./
+cp /var/cache/pacman/pkg/icu-55.* \
+	/var/cache/pacman/pkg/nodejs-0.12.* \
+	/var/cache/pacman/pkg/npm-2.14.* \
+	./
 
 rm -f Dockerfile
 ln -s Dockerfile.local Dockerfile

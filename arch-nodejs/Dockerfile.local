@@ -1,13 +1,22 @@
+##
+## Image for Arch Linux system with nodejs and npm.
+##
+## Run this image with volume mounted at /srv/www,
+##
+##	docker run -v ${PWD}/src:/srv/www -it sulhan/arch-nodejs
+##
 FROM sulhan/arch-base:latest
 MAINTAINER Sulhan <ms@kilabit.info>
+
+VOLUME /srv/www
+EXPOSE 80
+
+COPY init.sh /
+COPY bootstrap.sh /
 
 COPY *.db /var/lib/pacman/sync/
 COPY *.xz /var/cache/pacman/pkg/
 
-EXPOSE 80
-
-COPY bootstrap.sh /
-
 RUN exec /bootstrap.sh
 
-CMD ["/bin/bash"]
+CMD ["/init.sh"]

@@ -31,7 +31,7 @@ clean_common() {
 }
 
 do_install() {
-	pacman -S --noconfirm $PACKAGES
+	pacman -Sy --noconfirm $PACKAGES
 	return $?
 }
 
