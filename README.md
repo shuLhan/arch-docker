@@ -44,19 +44,26 @@ NOTE: remember to change the image name in `create-image.sh` if needed.
 
 * Base image: `sulhan/arch-base`.
 * Installed packages: postgresql (plus dependencies).
-* This image export port 5432.
+* This image expose port 5432.
 * Using volume in `/var/lib/postgres`.
 
 ## Jenkins Image
 
 * Base image: `sulhan/arch-base`.
 * Installed packages: `git`, `jre8-openjdk`, `jenkins`
-* This image export port 8090.
+* This image expose port 8090.
 * Using volume in `/srv/www`.
 
 ## Buildbot Image
 
 * Base image: `sulhan/arch-nodejs:latest`.
 * Installed packages: `buildbot`, `buildbot-slave`.
-* This image export port 8010.
+* This image expose port 8010.
+* Using volume in `/srv/www`.
+
+## Sails image
+
+* Base image: `sulhan/arch-nodejs:latest`.
+* Installed npm packages: `sails`, `pm2`, `grunt`.
+* This image expose port 80.
 * Using volume in `/srv/www`.
