@@ -1,6 +1,6 @@
-#!/bin/bash
+#!/bin/zsh
 
-ROOTFS=arch-rootfs
+. ../scripts/rootfs.sh
+. ./vars.sh
 
-sudo tar --numeric-owner --xattrs --acls -C "$ROOTFS" -c . |
-	docker import - sulhan/arch-base
+rootfs_to_docker ${IMAGE_NAME}

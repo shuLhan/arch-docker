@@ -1,6 +1,5 @@
-#!/bin/sh
+#!/bin/zsh
 
-ROOTFS=arch-rootfs
+. ../scripts/rootfs.sh
 
-sudo umount -R $ROOTFS
-rmdir $ROOTFS
+rootfs_clean
