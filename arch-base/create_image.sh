@@ -1,0 +1,1 @@
+../scripts/create_image.sh
