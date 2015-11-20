@@ -4,10 +4,12 @@ export WORKDIR=${WORKDIR:-"/srv/www"}
 export COMMANDS=${COMMANDS:-"npm start"}
 export NODE_ENV=${NODE_ENV:-"production"}
 
+echo "WORKDIR=$WORKDIR"
+echo "COMMANDS=$COMMANDS"
+echo "NODE_ENV=$NODE_ENV"
+
 cd $WORKDIR
 
-if [ ! -d $WORKDIR/node_modules ]; then
-	npm install
-fi
+npm install
 
 eval $COMMANDS
