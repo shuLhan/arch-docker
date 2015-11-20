@@ -89,3 +89,17 @@ bootstrap_clean_base() {
 	rm -rf /usr/share/gtk-doc/*
 	rm -rf /usr/share/readline/*
 }
+
+bootstrap_clean_nodejs() {
+	echo "==> cleaning nodejs ..."
+	rm -r /usr/share/icu/*
+	rm -r /usr/lib/node_modules/npm/doc/*
+	rm -r /usr/lib/node_modules/npm/html/doc/*
+	rm -r /usr/lib/node_modules/npm/man/*
+	rm -rf /usr/lib/python2.7/test
+	rm -rf /usr/share/perl5
+
+	find /usr/lib/node_modules -name man -type d -exec rm -rf '{}' \;
+	find /usr/lib/node_modules -name doc -type d -exec rm -rf '{}' \;
+	find /usr/lib/node_modules -name html -type d -exec rm -rf '{}' \;
+}
