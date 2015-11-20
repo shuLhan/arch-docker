@@ -16,6 +16,10 @@ export PKGS_ADD=()
 ## Using associative array.
 typeset -A FILES
 
+## List of files in rootfs to be backed up and removed before creating the
+## docker image.
+typeset -A IMAGE_FILES_BAK
+
 FILES=(${SCRIPTD}/bootstrap.sh ${ROOTFS}/)
 
 rootfs_must_root() {
@@ -50,7 +54,11 @@ rootfs_copy() {
 
 	for k in "${(@k)FILES}"; do
 		echo "    from $k to $FILES[$k]"
-		cp $k $FILES[$k]
+		if [ -f $k ]; then
+			cp $k $FILES[$k]
+		elif [ -d $k ]; then
+			cp -r $k $FILES[$k]
+		fi
 	done
 }
 
@@ -86,6 +94,7 @@ rootfs_bootstrap() {
 ## (6) run bootstrap script in new root fs.
 ##
 rootfs_main() {
+	rootfs_clean
 	rootfs_create
 	rootfs_mount
 	rootfs_install
@@ -93,14 +102,29 @@ rootfs_main() {
 	rootfs_bootstrap
 }
 
+rootfs_backup() {
+	echo "==> creating backups ..."
+
+	for k in "${(@k)IMAGE_FILES_BAK}"; do
+		echo "    from $k to $IMAGE_FILES_BAK[$k]"
+		if [ -f $k ]; then
+			cp $k $IMAGE_FILES_BAK[$k] && rm $k
+		elif [ -d $k ]; then
+			cp -r $k $IMAGE_FILES_BAK[$k] && rm -rf $k
+		fi
+	done
+}
+
 ##
 ## Convert rootfs to docker image.
 ##
 rootfs_to_docker() {
 	if [[ $# < 2 ]]; then
-		echo "args: rootfs_to_docker [image-name]"
+		echo "args: rootfs_to_docker [image-name] [options]"
 		exit 1
 	fi
+
+	rootfs_backup
 
 	sudo tar --numeric-owner --xattrs --acls -C "$ROOTFS" -c . |
 		docker import ${@:2} - $1
