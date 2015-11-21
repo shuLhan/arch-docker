@@ -56,8 +56,10 @@ rootfs_copy() {
 		echo "    from $k to $FILES[$k]"
 		if [ -f $k ]; then
 			cp $k $FILES[$k]
+			chown root:root $FILES[$k]
 		elif [ -d $k ]; then
 			cp -r $k $FILES[$k]
+			chown -R root:root $FILES[$k]
 		fi
 	done
 }
