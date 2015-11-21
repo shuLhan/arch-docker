@@ -9,7 +9,7 @@ PKGS_ADD+=(git gcc make python2 nodejs npm)
 PKGS_REMOVED=()
 
 IMAGE_NAME="sulhan/arch-nodejs-sails"
-IMAGE_ARGS=(-c="VOLUME /srv/www" -c="EXPOSE 80" -c="CMD /init.sh")
+IMAGE_ARGS=(-c="VOLUME /srv/www" -c="VOLUME /root/.npm" -c="EXPOSE 9000" -c="CMD /init.sh")
 IMAGE_FILES_BAK+=("${ROOTFS}/root/.npm" "${THISD}/npm")
 
 FILES+=("${THISD}/init.sh" "${ROOTFS}/")
