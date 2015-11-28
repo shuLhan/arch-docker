@@ -4,7 +4,6 @@ THISD=${0:a:h}
 
 PKGS+=("util-linux")
 PKGS_ADD+=("postgresql")
-PKGS_REMOVED=()
 
 IMAGE_NAME="sulhan/arch-postgresql"
 IMAGE_ARGS=(-c="VOLUME /var/lib/postgres" -c="EXPOSE 5432" -c="CMD /init.sh")
