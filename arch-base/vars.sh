@@ -2,11 +2,11 @@
 
 THISD=${0:a:h}
 
-PKGS+=(coreutils ca-certificates pacman sed binutils file grep)
-PKGS_REMOVED+=(perl db)
+PKGS=(coreutils binutils findutils sed gzip file)
+PKGS_REMOVED+=(file gzip sed findutils less bzip2 pcre binutils perl db gdbm linux-api-headers)
 IMAGE_NAME="sulhan/arch-base"
+IMAGE_ARGS=()
 
-FILES+=("${THISD}/pacman.conf" "$ROOTFS/etc")
 FILES+=("${THISD}/bootstrap_base.sh" "${ROOTFS}/")
 
 BOOTSTRAP_S+=("/bootstrap_base.sh")

@@ -30,8 +30,7 @@ bootstrap_clean_common() {
 	rm -rf /usr/share/info/*
 	rm -rf /var/cache/pacman/pkg/*
 	rm -rf /var/log/*
-	rm -f /bootstrap.sh
-	rm -f /run_bootstrap.sh
+	rm -f /*.sh
 }
 
 bootstrap_hostname() {

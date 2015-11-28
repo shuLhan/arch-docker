@@ -84,7 +84,19 @@ rootfs_bootstrap() {
 	chmod +x ${RUN_BOOTSTRAP}
 
 	## run the bootstrap script.
-	arch-chroot "$ROOTFS" /bin/sh -c "/`basename ${RUN_BOOTSTRAP}`"
+	${SCRIPTD}/arch-chroot.sh "$ROOTFS" /bin/sh -c "/`basename ${RUN_BOOTSTRAP}`"
+	wait
+}
+
+rootfs_uninstall() {
+	echo "==> uninstalling packages ..."
+	pacman -r "$ROOTFS" -Rdd --noconfirm ${PKGS_REMOVED}
+}
+
+rootfs_clean_pacman() {
+	echo "==> remove pacman db and local ..."
+	rm -rf "${ROOTFS}/var/lib/pacman/sync/*"
+	rm -rf "${ROOTFS}/var/lib/pacman/local/*"
 }
 
 ##
@@ -102,6 +114,7 @@ rootfs_main() {
 	rootfs_install
 	rootfs_copy
 	rootfs_bootstrap
+	rootfs_uninstall
 }
 
 rootfs_backup() {
@@ -121,11 +134,6 @@ rootfs_backup() {
 ## Convert rootfs to docker image.
 ##
 rootfs_to_docker() {
-	if [[ $# < 2 ]]; then
-		echo "args: rootfs_to_docker [image-name] [options]"
-		exit 1
-	fi
-
 	rootfs_backup
 
 	sudo tar --numeric-owner --xattrs --acls -C "$ROOTFS" -c . |
