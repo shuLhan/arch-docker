@@ -1,0 +1,11 @@
+{
+	"apps":
+	[{
+		"name"              : "proofn"
+	,	"script"            : "app.js"
+	,	"watch"             : false
+	,	"cwd"               : "/srv/www"
+	,	"max_memory_restart": "256M"
+	,	"log_date_format"   : "YYYY-MM-DD HH:mm:ss"
+	}]
+}

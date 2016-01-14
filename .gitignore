@@ -1,4 +1,7 @@
 arch-base-mongodb/data.mongodb
+arch-base-nodejs-0.12.9/npm
+arch-base-nodejs-0.12.9/nvm
+arch-base-redis/data.redis
 */arch-rootfs
 */data
 */env
