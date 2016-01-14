@@ -54,12 +54,15 @@ rootfs_copy() {
 
 	for k in "${(@k)FILES}"; do
 		echo "    from $k to $FILES[$k]"
-		if [ -f $k ]; then
-			cp $k $FILES[$k]
-			chown root:root $FILES[$k]
+		if [ -h $k ]; then
+			cp -rL $k $FILES[$k]
+			chown -R root:root $FILES[$k]
 		elif [ -d $k ]; then
 			cp -r $k $FILES[$k]
 			chown -R root:root $FILES[$k]
+		elif [ -f $k ]; then
+			cp $k $FILES[$k]
+			chown root:root $FILES[$k]
 		fi
 	done
 }
@@ -90,7 +93,9 @@ rootfs_bootstrap() {
 
 rootfs_uninstall() {
 	echo "==> uninstalling packages ..."
-	pacman -r "$ROOTFS" -Rdd --noconfirm ${PKGS_REMOVED}
+	if [[ ${#PKGS_REMOVED} > 0 ]]; then
+		pacman -r "$ROOTFS" -Rdd --noconfirm ${PKGS_REMOVED}
+	fi
 }
 
 rootfs_clean_pacman() {
