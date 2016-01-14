@@ -1,5 +1,6 @@
+arch-base-mongodb/data.mongodb
 */arch-rootfs
-*/npm
 */data
-*/src
 */env
+*/npm
+*/src
