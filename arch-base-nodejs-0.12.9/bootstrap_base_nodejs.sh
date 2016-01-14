@@ -30,3 +30,5 @@ npm install -g bower
 
 echo ">>> installing sails"
 npm install -g sails --ignore-scripts
+
+npm cache clean
