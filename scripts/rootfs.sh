@@ -122,7 +122,12 @@ rootfs_uninstall() {
 	echo ""
 	echo "==> uninstalling packages ..."
 	if [[ ${#PKGS_REMOVED} > 0 ]]; then
-		pacman -r "$ROOTFS" -Rdd --noconfirm ${PKGS_REMOVED}
+		pacman -r "$ROOTFS" -Rs --noconfirm ${PKGS_REMOVED}
+	fi
+
+	echo ">>> force removing packages ..."
+	if [[ ${#PKGS_REMOVED_FORCE} > 0 ]]; then
+		pacman -r "$ROOTFS" -Rs --noconfirm ${PKGS_REMOVED_FORCE}
 	fi
 }
 
@@ -192,9 +197,11 @@ rootfs_to_docker() {
 ##
 rootfs_clean() {
 	echo ""
-	echo "==> unmounting and cleaning previous rootfs ..."
+	echo "==> unmounting and cleaning previous rootfs '$ROOTFS'"
 
-	sudo umount -R $ROOTFS
-	rm -f ${ROOTFS}/*
-	rmdir ${ROOTFS}
+	if [ -d ${ROOTFS} ]; then
+		sudo umount -R $ROOTFS &>/dev/null
+		rm -f ${ROOTFS}/* &>/dev/null
+		rmdir ${ROOTFS} &>/dev/null
+	fi
 }

@@ -76,6 +76,12 @@ bootstrap_remove_packages() {
 	echo "==> remove unneeded packages ..."
 	for pkg in ${PKGS_REMOVED[@]}; do
 		echo "    removing $pkg"
+		pacman -Rs --noconfirm $pkg
+	done
+
+	echo ">>> force remove packages ..."
+	for pkg in ${PKGS_REMOVED_FORCE[@]}; do
+		echo "    force removing $pkg"
 		pacman -Rdd --noconfirm $pkg
 	done
 }
