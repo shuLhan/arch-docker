@@ -1,18 +1,17 @@
 #!/bin/zsh
 
-THISD=${0:a:h}
-
+HOSTNAME="arch-sailsjs"
 ROOTFS_SIZE=900M
 
-PKGS+=(util-linux)
-PKGS_ADD+=(git gcc make python2 nodejs npm)
+PKGS=(util-linux)
+PKGS_ADD=(git gcc make python2 nodejs npm)
 
-IMAGE_NAME="sulhan/arch-nodejs-sails"
+IMAGE_NAME="sulhan/${HOSTNAME}"
 IMAGE_ARGS=(-c="VOLUME /srv/www" -c="VOLUME /root/.npm" -c="EXPOSE 9000" -c="CMD /init.sh")
-IMAGE_FILES_BAK+=("${ROOTFS}/root/.npm" "${THISD}/npm")
+IMAGE_FILES_BAK=("${ROOTFS}/root/.npm" "${PWD}/npm")
 
-FILES+=("${THISD}/init.sh" "${ROOTFS}/")
-FILES+=("${THISD}/bootstrap_sailsjs.sh" "${ROOTFS}/")
-FILES+=("${THISD}/npm" "${ROOTFS}/root/.npm")
+FILES=("${PWD}/init.sh" "${ROOTFS}/")
+FILES+=("${PWD}/bootstrap_sailsjs.sh" "${ROOTFS}/")
+FILES+=("${PWD}/npm" "${ROOTFS}/root/.npm")
 
-BOOTSTRAP_S+=("/bootstrap_sailsjs.sh")
+BOOTSTRAP_SCRIPTS=("/bootstrap_sailsjs.sh")

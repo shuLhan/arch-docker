@@ -1,16 +1,17 @@
 #!/bin/zsh
 
-THISD=${0:a:h}
+HOSTNAME="arch-postgresql"
 
-PKGS+=("util-linux")
-PKGS_ADD+=("postgresql")
+PKGS=(coreutils binutils findutils sed gzip file util-linux)
+PKGS_ADD=("postgresql")
+PKGS_REMOVED=(file gzip sed findutils less bzip2 pcre binutils util-linux)
 
-IMAGE_NAME="sulhan/arch-postgresql"
+IMAGE_NAME="sulhan/${HOSTNAME}"
 IMAGE_ARGS=(-c="VOLUME /var/lib/postgres" -c="EXPOSE 5432" -c="CMD /init.sh")
 
-FILES+=("${THISD}/pg_hba.conf" "${ROOTFS}/")
-FILES+=("${THISD}/postgresql.conf" "${ROOTFS}/")
-FILES+=("${THISD}/init.sh" "${ROOTFS}/")
-FILES+=("${THISD}/bootstrap_postgresql.sh" "${ROOTFS}/")
+FILES=("${PWD}/pg_hba.conf" "${ROOTFS}/")
+FILES+=("${PWD}/postgresql.conf" "${ROOTFS}/")
+FILES+=("${PWD}/init.sh" "${ROOTFS}/")
+FILES+=("${PWD}/bootstrap_postgresql.sh" "${ROOTFS}/")
 
-BOOTSTRAP_S+=("/bootstrap_postgresql.sh")
+BOOTSTRAP_SCRIPTS=("/bootstrap_postgresql.sh")

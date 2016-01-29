@@ -11,7 +11,7 @@ export HOSTNAME="arch-base"
 #)
 
 PKGS=(coreutils binutils findutils sed gzip file)
-PKGS_REMOVED=(file gzip sed findutils less bzip2 pcre binutils perl db gdbm linux-api-headers)
+PKGS_REMOVED=(file gzip sed findutils less bzip2 pcre binutils)
 
 IMAGE_NAME="sulhan/arch-base"
 IMAGE_ARGS=()

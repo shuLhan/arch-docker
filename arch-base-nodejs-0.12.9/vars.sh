@@ -1,23 +1,22 @@
 #!/bin/zsh
 
-THISD=${0:a:h}
-
+HOSTNAME="arch-nodejs"
 ROOTFS_SIZE=900M
 
 PKGS+=(util-linux)
 PKGS_ADD+=(awk gcc git grep make python2)
 PKGS_REMOVED=()
 
-IMAGE_NAME="sulhan/arch-nodejs-0.12.9"
+IMAGE_NAME="sulhan/${HOSTNAME}-0.12.9"
 IMAGE_ARGS=(-c="VOLUME /srv/www" -c="VOLUME /root/.npm" -c="EXPOSE 80"
 	-c="CMD /init.sh")
-IMAGE_FILES_BAK+=("${ROOTFS}/root/.npm" "${THISD}/npm")
+IMAGE_FILES_BAK=("${ROOTFS}/root/.npm" "${PWD}/npm")
 
-FILES+=("${THISD}/init.sh" "${ROOTFS}/")
-FILES+=("${THISD}/bootstrap_base_nodejs.sh" "${ROOTFS}/")
-FILES+=("${THISD}/npm" "${ROOTFS}/root/.npm")
-FILES+=("${THISD}/nvm" "${ROOTFS}/root/.nvm")
-FILES+=("${THISD}/nvm.sh" "${ROOTFS}/etc/profile.d/")
-FILES+=("${THISD}/pm2.json" "${ROOTFS}/")
+FILES=("${PWD}/init.sh" "${ROOTFS}/")
+FILES+=("${PWD}/bootstrap_base_nodejs.sh" "${ROOTFS}/")
+FILES+=("${PWD}/npm" "${ROOTFS}/root/.npm")
+FILES+=("${PWD}/nvm" "${ROOTFS}/root/.nvm")
+FILES+=("${PWD}/nvm.sh" "${ROOTFS}/etc/profile.d/")
+FILES+=("${PWD}/pm2.json" "${ROOTFS}/")
 
-BOOTSTRAP_S+=("/bootstrap_base_nodejs.sh")
+BOOTSTRAP_SCRIPTS=("/bootstrap_base_nodejs.sh")
