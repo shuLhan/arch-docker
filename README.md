@@ -1,5 +1,7 @@
 # Arch-Docker
 
+Baked images is at Docker hub: https://hub.docker.com/u/sulhan/
+
 This repository contain ZSH scripts to create Docker images based on Arch Linux
 x86_64.
 
@@ -30,7 +32,7 @@ The steps to create new custom image,
 * To generate rootfs, execute
 
   ```
-  # ./create_rootfs.sh
+  $ sudo ./create_rootfs.sh
   ```
 
   This will create directory `arch-rootfs`, mounted using `tmpfs`, in the
@@ -40,7 +42,7 @@ The steps to create new custom image,
 * create Docker image with
 
   ```
-  # ./create_image.sh
+  $ ./create_image.sh
   ```
 
 * Thats it.
