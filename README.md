@@ -16,8 +16,29 @@ This is good, it can minimize size usage in local host, but it slow.
 This script bypass the usage of `Dockerfile` and directly create rootfs,
 modified it, and import it to Docker as image.
 
+<s>
 Arch Linux is become bloated, I recommend to use Alpine Linux for small size
 and probably faster container.
+</s>
+
+I said the above statement when I am still naive.
+
+Arch Linux is not bloated.
+Unlike other Linux distro, Arch Linux include documentation and development
+files in one package, while other distro split it into "-doc" and/or
+"-devel" packages.
+
+DO NOT USE Alpine Linux just because you want smaller images.
+Alpine Linux use Musl libc, the core library where every single program
+depends on, which completely different with glibc that used by most Linux
+distro where you probably develop and test your program.
+And, no, Musl is
+[not always](https://bell-sw.com/blog/alpaquita-linux-performance-the-race-is-on/)
+[faster](https://users.rust-lang.org/t/optimizing-rust-binaries-observation-of-musl-versus-glibc-and-jemalloc-versus-system-alloc/8499)
+than glibc.
+If you did not know what is libc and why it will affect your program, please
+do not use it for the sake of smaller images.
+
 
 ## How To
 
